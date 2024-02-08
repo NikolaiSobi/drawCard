@@ -22,7 +22,6 @@ const DrawCard = ({deck}) => {
             const res = await axios.get(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`)
             setCardImageUrl(res.data.cards[0].image)
             setDrawCards([res.data.cards[0].image, ...drawnCards])
-            console.log(drawnCards)
             if(res.data.remaining < 1){
                 alert("Error: no cards remaining!")
             }
@@ -35,7 +34,7 @@ const DrawCard = ({deck}) => {
         <div>
             <button onClick={() => card()} > Draw Card</button>
             <button disabled={isActive} onClick={() =>shuffleDeckHandler(deck.deck_id)}>Shuffle Deck</button>
-            {drawnCards.map((card) => <img src={card}></img>)}
+            {drawnCards.map((card, idx) => <img key={idx} src={card}></img>)}
         </div>
     )
 }
